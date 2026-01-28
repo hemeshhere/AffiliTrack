@@ -70,9 +70,19 @@ function App() {
           <Register />
         </AppLayout>
       } />
-      <Route path="/dashboard" element={userDetails ?
-        <Dashboard /> :
-        <Navigate to="/login" />} />
+      <Route
+        path="/dashboard"
+        element={
+          userDetails ? (
+            <UserLayout>
+              <Dashboard />
+            </UserLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
 
       <Route path="/logout" element={userDetails ?
         <Logout /> :

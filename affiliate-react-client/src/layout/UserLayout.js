@@ -1,12 +1,10 @@
-import UserFooter from "./UserFooter";
-import UserHeader from "./UserHeader";
+import UserHeader from "../layout/UserHeader";
 
 function UserLayout({ children }) {
     return (
         <>
             <UserHeader />
-            {children}
-            <UserFooter />
+            <main>{children}</main>
         </>
     );
 }

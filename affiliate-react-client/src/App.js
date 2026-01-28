@@ -14,6 +14,7 @@ import UserLayout from "./layout/UserLayout";
 import Register from "./pages/Register";
 import { Spinner } from "react-bootstrap";
 import UnauthorizedAccess from "./components/UnauthorizedAccess";
+import ManageUsers from "./pages/users/ManageUsers";
 import ProtectedRoute from "./rbac/ProtectedRoute";
 function App() {
   // const [userDetails, setUserDetails] = useState(null);
@@ -58,9 +59,7 @@ function App() {
       }
       />
       <Route path="/login" element={userDetails ?
-        <UserLayout>
-          <Dashboard />
-        </UserLayout> :
+        <Navigate to="/dashboard" />:
         <AppLayout>
           <Login />
         </AppLayout>}

@@ -220,13 +220,14 @@ function LinksDashboard() {
                     sx={{
                         fontFamily: 'inherit'
                     }}
+                    density='compact'
                 />
             </div>
 
             <Modal show={showModal} onHide={() => handleCloseModal()}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Add Link
+                        {isEdit ? (<>Update Link</>) : (<>Add Link</>)}
                     </Modal.Title>
                 </Modal.Header>
 

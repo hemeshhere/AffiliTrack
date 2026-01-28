@@ -1,4 +1,4 @@
-function Footer() {
+function UserFooter() {
     return (
         <div className="container-fluid bg-light text-center py-3">
             All rights reserved.
@@ -6,4 +6,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default UserFooter;

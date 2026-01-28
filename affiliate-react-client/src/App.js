@@ -1,28 +1,39 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "./Home";
-import Login from "./Login";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import AppLayout from "./layout/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Error from "./pages/Error";
 import Logout from "./pages/Logout";
+import { serverEndpoint } from "./config/config";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_USER } from "./redux/user/actions";
+import UserLayout from "./layout/UserLayout";
+import Register from "./pages/Register";
+import { Spinner } from "react-bootstrap";
 
 function App() {
-  const [userDetails, setUserDetails] = useState(null);
-
-  const updateUserDetails = (updatedUserDetails) => {
-    setUserDetails(updatedUserDetails);
-  };
+  // const [userDetails, setUserDetails] = useState(null);
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.userDetails);
+  const [loading, setLoading] = useState(true);
 
   const isUserLoggedIn = async () => {
     try {
-      const response = await axios.post('http://localhost:5001/auth/is-user-logged-in', {}, {
+      const response = await axios.post(`${serverEndpoint}/auth/is-user-logged-in`, {}, {
         withCredentials: true
       });
-      updateUserDetails(response.data.user);
+      // updateUserDetails(response.data.user);
+      dispatch({
+        type: SET_USER,
+        payload: response.data.user
+      });
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,31 +41,47 @@ function App() {
     isUserLoggedIn();
   }, []);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={userDetails ?
-        <Navigate to="/dashboard" /> :
+        <UserLayout>
+          <Navigate to='/dashboard' />
+        </UserLayout> :
         <AppLayout>
           <Home />
         </AppLayout>
       }
       />
       <Route path="/login" element={userDetails ?
-        <Navigate to="/dashboard" /> :
+        <UserLayout>
+          <Dashboard />
+        </UserLayout> :
         <AppLayout>
-          <Login updateUserDetails={updateUserDetails} />
+          <Login />
         </AppLayout>}
       />
+      <Route path="/register" element={userDetails ?
+        <Navigate to='/dashboard' /> :
+        <AppLayout>
+          <Register />
+        </AppLayout>
+      } />
       <Route path="/dashboard" element={userDetails ?
         <Dashboard /> :
         <Navigate to="/login" />} />
 
       <Route path="/logout" element={userDetails ?
-        <Logout updateUserDetails={updateUserDetails} /> :
+        <Logout /> :
         <Navigate to="/login" />} />
 
       <Route path="/error" element={userDetails ?
-        <Error /> :
+        <UserLayout>
+          <Error />
+        </UserLayout> :
         <AppLayout><Error /></AppLayout>} />
     </Routes>
 

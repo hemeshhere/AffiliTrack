@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express'); // Include the express module
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./src/routes/authRoutes');
+const linksRoutes = require('./src/routes/linksRoutes');
 const cors = require('cors');
 
 mongoose.connect(process.env.MONGO_URI)
@@ -20,6 +21,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes);
+app.use('/links', linksRoutes);
 
 const PORT = 5001;
 app.listen(5001, (error) => {

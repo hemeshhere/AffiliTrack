@@ -44,7 +44,11 @@ function App() {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" />
+      </div>
+    );
   }
 
   return (
@@ -95,14 +99,18 @@ function App() {
         </UserLayout> :
         <AppLayout><Error /></AppLayout>} />
 
-      <Route path="/users" element={userDetails ?
-        <ProtectedRoute roles={['admin']}>
-          <UserLayout>
-            <ManageUsers />
-          </UserLayout> :
-        </ProtectedRoute> :
-        <Navigate to='/login' /> 
-      } />
+      <Route path="/users" element={ userDetails ? (
+            <ProtectedRoute roles={['admin']}>
+              <UserLayout>
+                <ManageUsers />
+              </UserLayout>
+            </ProtectedRoute>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
 
       <Route path="/unauthorized-access" element={userDetails ?
           <UserLayout>

@@ -40,8 +40,8 @@ const authController = {
             const token = jwt.sign(user, secret, { expiresIn: '1h' });
             response.cookie('jwtToken', token, {
                 httpOnly: true,
-                secure: true,
-                domain: 'localhost',
+                secure: false,
+                sameSite: 'lax',
                 path: '/'
             });
             response.json({ user: user, message: 'User authenticated' });
@@ -88,11 +88,12 @@ const authController = {
             const encryptedPassword = await bcrypt.hash(password, 10);
 
             // Create mongoose model object and set the record values
+            const role = data && data.role ? data.role : 'admin';
             const user = new Users({
                 email: username,
                 password: encryptedPassword,
                 name: name,
-                role: data.role ? data.role : 'admin'
+                role: role
             });
             await user.save();
             const userDetails = {
@@ -104,8 +105,8 @@ const authController = {
 
             response.cookie('jwtToken', token, {
                 httpOnly: true,
-                secure: true,
-                domain: 'localhost',
+                secure: false,
+                sameSite: 'lax',
                 path: '/'
             });
             response.json({ message: 'User registered', user: userDetails });
@@ -153,8 +154,8 @@ const authController = {
             const token = jwt.sign(user, secret, { expiresIn: '1h' });
             response.cookie('jwtToken', token, {
                 httpOnly: true,
-                secure: true,
-                domain: 'localhost',
+                secure: false,
+                sameSite: 'lax',
                 path: '/'
             });
             response.json({ user: user, message: 'User authenticated' });

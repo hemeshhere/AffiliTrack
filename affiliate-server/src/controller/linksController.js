@@ -9,7 +9,6 @@ const linksController = {
                 campaignTitle: campaign_title,
                 originalUrl: original_url,
                 category: category,
-                user: request.user.id, // Coming from middleware; AuthMiddleware
                 user: request.user.role === 'admin' ? request.user.id : request.user.adminId
             });
             link.save();

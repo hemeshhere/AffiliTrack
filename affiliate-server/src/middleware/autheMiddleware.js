@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = {
+const autheMiddleware = {
     protect: async (request, response, next) => {
         try {
             const token = request.cookies?.jwtToken;
@@ -28,4 +28,4 @@ const authMiddleware = {
     },
 };
 
-module.exports = authMiddleware;
+module.exports = autheMiddleware;

@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 function Home() {
     return (
         <div className="container py-5">
@@ -10,7 +12,7 @@ function Home() {
                 </p>
 
                 <div className="mt-4">
-                    <button className="btn btn-primary me-3">Get Started</button>
+                    <button className="btn btn-primary me-3" onClick={()=>{}}>Get Started</button>
                     <button className="btn btn-outline-secondary">View Dashboard</button>
                 </div>
             </section>
@@ -18,21 +20,21 @@ function Home() {
             {/* Features Section */}
             <section className="row text-center mb-5">
                 <div className="col-md-4 mb-4">
-                    <h5>📊 Visit Tracking</h5>
+                    <h5>Visit Tracking</h5>
                     <p className="text-muted">
                         Track how many times your websites or affiliate links are visited.
                     </p>
                 </div>
 
                 <div className="col-md-4 mb-4">
-                    <h5>🔗 Link Management</h5>
+                    <h5>Link Management</h5>
                     <p className="text-muted">
                         Add, edit, and manage multiple links from a single place.
                     </p>
                 </div>
 
                 <div className="col-md-4 mb-4">
-                    <h5>📈 Insights & Analytics</h5>
+                    <h5>Insights & Analytics</h5>
                     <p className="text-muted">
                         Understand performance and optimize your affiliate strategy.
                     </p>
@@ -42,15 +44,15 @@ function Home() {
             {/* Stats Preview Section */}
             <section className="row text-center mb-5">
                 <div className="col-md-3">
-                    <h3>0+</h3>
+                    <h3>12+</h3>
                     <p className="text-muted">Tracked Links</p>
                 </div>
                 <div className="col-md-3">
-                    <h3>0+</h3>
+                    <h3>550+</h3>
                     <p className="text-muted">Total Visits</p>
                 </div>
                 <div className="col-md-3">
-                    <h3>0+</h3>
+                    <h3>10+</h3>
                     <p className="text-muted">Active Campaigns</p>
                 </div>
                 <div className="col-md-3">
@@ -59,13 +61,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* Call to Action */}
-            <section className="text-center">
-                <h4 className="mb-3">Start tracking your affiliate traffic today</h4>
-                <button className="btn btn-success btn-lg">
-                    Create Your First Link
-                </button>
-            </section>
         </div>
     );
 }
